@@ -5,6 +5,7 @@ import 'package:assignment/service/apiresponse.dart';
 import 'package:assignment/utils/check_network.dart';
 import 'package:assignment/utils/constants.dart';
 import 'package:assignment/viewmodel/trending_products_viewmodel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -127,8 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   leading: SizedBox(
                                       height: 100,
                                       width: 100,
-                                      child: Image.network(
-                                          productList[index].thumbnail!)),
+                                      child: CachedNetworkImage(
+                                          placeholder: (context, url) => const CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                          imageUrl: productList[index].thumbnail!)),
                                   title: Text(productList[index].title!),
                                   subtitle: Text(
                                       productList[index].description!,

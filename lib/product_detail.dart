@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -66,7 +67,10 @@ class ProductDetailState extends State<ProductDetail> {
           SizedBox(
             height: 200,
             width: double.infinity,
-            child: Image.network(widget.productList.elementAt(widget.index).thumbnail!),
+            child: CachedNetworkImage(imageUrl: widget.productList.elementAt(widget.index).thumbnail!,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
           Positioned(
             bottom: 10,
