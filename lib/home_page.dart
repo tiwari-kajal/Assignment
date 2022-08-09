@@ -81,72 +81,77 @@ class _MyHomePageState extends State<MyHomePage> {
                         if (snapshot.hasData || isConnected == true) {
                           List<Products> productList =
                               snapshot.data as List<Products>;
-                          return ListView.builder(
-                            controller: _controller,
-                            itemCount: productList.length,
-                            itemBuilder: (_, index) {
-                              return Card(
-                                child: ListTile(
-                                  onTap: (() {
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        transitionsBuilder: (context, animation,
-                                            secondaryAnimation, child) {
-                                          return ScaleTransition(
-                                            alignment: Alignment.center,
-                                            scale: Tween<double>(
-                                                    begin: 0.1, end: 1)
-                                                .animate(
-                                              CurvedAnimation(
-                                                parent: animation,
-                                                curve: Curves.bounceIn,
+                          if(productList != null){
+                            return ListView.builder(
+                              controller: _controller,
+                              itemCount: productList.length,
+                              itemBuilder: (_, index) {
+                                return Card(
+                                  child: ListTile(
+                                    onTap: (() {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) {
+                                            return ScaleTransition(
+                                              alignment: Alignment.center,
+                                              scale: Tween<double>(
+                                                  begin: 0.1, end: 1)
+                                                  .animate(
+                                                CurvedAnimation(
+                                                  parent: animation,
+                                                  curve: Curves.bounceIn,
+                                                ),
                                               ),
-                                            ),
-                                            child: child,
-                                          );
-                                        },
-                                        transitionDuration:
-                                            Duration(seconds: 1),
-                                        pageBuilder: (BuildContext context,
-                                            Animation<double> animation,
-                                            Animation<double>
-                                                secondaryAnimation) {
-                                          return ProductDetail(
-                                            productList: productList,
-                                            index: index,
-                                          );
-                                        },
-                                      ),
-                                      /*MaterialPageRoute(
-                                            builder: (context) => ProductDetail(
-                                                  productList: productList,
-                                                  index: index,
-                                                ))*/
-                                    );
-                                  }),
-                                  leading: SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: CachedNetworkImage(
-                                          placeholder: (context, url) => const CircularProgressIndicator(),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                                          imageUrl: productList[index].thumbnail!)),
-                                  title: Text(productList[index].title!),
-                                  subtitle: Text(
-                                      productList[index].description!,
-                                      maxLines: 2),
-                                  trailing: Text(
-                                    '\$${productList[index].price!}',
-                                    textScaleFactor: 1.5,
-                                    style: const TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
+                                              child: child,
+                                            );
+                                          },
+                                          transitionDuration:
+                                          Duration(seconds: 1),
+                                          pageBuilder: (BuildContext context,
+                                              Animation<double> animation,
+                                              Animation<double>
+                                              secondaryAnimation) {
+                                            return ProductDetail(
+                                              productList: productList,
+                                              index: index,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }),
+                                    leading: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: CachedNetworkImage(
+                                            placeholder: (context, url) {
+                                              return const SizedBox(
+                                                  height: 10.0,
+                                                  width: 10.0,
+                                                  child: const CircularProgressIndicator());
+                                            },
+                                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                                            imageUrl: productList[index].thumbnail!)),
+                                    title: Text(productList[index].title!),
+                                    subtitle: Text(
+                                        productList[index].description!,
+                                        maxLines: 2),
+                                    trailing: Text(
+                                      '\$${productList[index].price!}',
+                                      textScaleFactor: 1.5,
+                                      style: const TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
+                                );
+                              },
+                            );
+                          }
+                          else {
+                           return const SizedBox.shrink();
+                          }
                         } else {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
