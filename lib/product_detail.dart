@@ -13,7 +13,9 @@ class ProductDetail extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ProductDetail> createState() => ProductDetailState();
+  State<ProductDetail> createState() {
+    return ProductDetailState();
+  }
 }
 
 class ProductDetailState extends State<ProductDetail> {

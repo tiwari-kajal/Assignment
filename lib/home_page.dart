@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:assignment/product_detail.dart';
 import 'package:assignment/service/apiresponse.dart';
 import 'package:assignment/utils/check_network.dart';
-import 'package:assignment/utils/constants.dart';
 import 'package:assignment/viewmodel/trending_products_viewmodel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
@@ -16,7 +15,9 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -108,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             );
                                           },
                                           transitionDuration:
-                                          Duration(seconds: 1),
+                                          const Duration(seconds: 1),
                                           pageBuilder: (BuildContext context,
                                               Animation<double> animation,
                                               Animation<double>
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               return const SizedBox(
                                                   height: 10.0,
                                                   width: 10.0,
-                                                  child: const CircularProgressIndicator());
+                                                  child: CircularProgressIndicator());
                                             },
                                             errorWidget: (context, url, error) => const Icon(Icons.error),
                                             imageUrl: productList[index].thumbnail!)),
